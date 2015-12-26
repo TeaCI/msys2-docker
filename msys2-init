@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+. /etc/msys2-env
+
+# hack - wineboot without display, create wineprefix in a quick way, workaround wineboot event timeout waiting for gecko and mono
+DISPLAY=:55.0 wineboot; wineserver -w
+
+pushd ~/.wine/drive_c
+wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
+tar xf msys2-base-i686-20150916.tar.xz
+popd
+
+ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.

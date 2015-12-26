@@ -1,11 +1,17 @@
 #!/bin/bash
 
 set -e
-set -x
-export DISPLAY=:95
-Xvfb :95 -ac -screen 0 800x600x16 &
-XVFB_PID=$!
-#exec 2<&-
+
+if [ "$DEBUG_WRAPPER" = "true" ]
+then
+    set -x
+fi
+
+if [ "$ALLOC_XVFB" = "true" ]
+then
+    export DISPLAY=:95
+    Xvfb :95 -ac -reset -terminate -screen 0 800x600x16 2>/dev/null &
+fi
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]
 then
@@ -19,17 +25,11 @@ fi
 
 export MSYSTEM=MSYS
 export WINEDEBUG=fixme-all
-#export WINEDEBUG=tid,console
 
 SCRIPT_FILE=typescript.$$
 EXIT_CODE=exit_code.$$
 
-# emulate travis_wait
-#(for i in {1..60}; do sleep 60; echo timestamp:$i; done) &
-#ALIVE_PING=$!
-
-cd /root/.wine/drive_c/msys32
-pwd
+cd /root/.wine/drive_c/msys32 # FIXME
 UNIXPWD=`pwd`
 WINPWD=`winepath -w ${UNIXPWD}`
 WINPWD=${WINPWD//\\/\/} # replace \ to /
@@ -44,6 +44,7 @@ elif [ "$1" = "-c" ]
 then
     COMMAND=${@:2}
     (wineconsole $MSYS_ROOT/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e -c \\\"${COMMAND}\\\"|| echo \\\$? > ${EXIT_CODE})\"") &
+    WINECONSOLE_PID=$!
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
     echo \$ ${COMMAND}
@@ -54,26 +55,20 @@ else
     WINPATH=`winepath -w ${UNIXPATH}`
     COMMAND=${WINPATH}\\`basename $1`
     (wineconsole $MSYS_ROOT/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e \\\"${COMMAND}\\\" || echo \\\$? > ${EXIT_CODE})\"") &
+    WINECONSOLE_PID=$!
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
     echo \$ ${COMMAND}
 fi
-
-tail -F ${SCRIPT_FILE} --pid=$! 2> /dev/null || return 0
-ls -lh ${SCRIPT_FILE}
-cat ${SCRIPT_FILE}
+sleep 1
+tail -F ${SCRIPT_FILE} --pid=$WINECONSOLE_PID 2> /dev/null || return 0
 echo "Leaving MSYS2 shell <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 rm -f ${SCRIPT_FILE}
 
-#if test -d /proc/${ALIVE_PING}
-#then
-#    kill -9 ${ALIVE_PING}
-#fi
+wineserver -w
 
-wineserver -k
-kill -9 $XVFB_PID
-rm -vf /tmp/.X95-lock
+sleep 1
 if test -f ${EXIT_CODE}
 then
     # clean up
