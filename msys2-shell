@@ -40,6 +40,7 @@ echo "Entering MSYS2 shell >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 if [ "$#" = "0" ]
 then
     (wineconsole $MSYS_ROOT/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"cd \\\"${WINPWD}\\\"; bash\"") &
+    WINECONSOLE_PID=$!
 elif [ "$1" = "-c" ]
 then
     COMMAND=${@:2}
