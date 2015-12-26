@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y --install-recommends wine-staging wineh
 COPY msys2-env /etc/
 COPY msys2-shell /usr/bin/
 COPY msys2-init /usr/bin/
-RUN msys2-init
+RUN echo 45.59.69.178 repo.msys2.org >> /etc/hosts; msys2-init
