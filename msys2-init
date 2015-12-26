@@ -7,12 +7,18 @@ set -e
 # hack - wineboot without display, create wineprefix in a quick way, workaround wineboot event timeout waiting for gecko and mono
 DISPLAY=:55.0 wineboot; wineserver -w
 
-pushd ~/.wine/drive_c
-wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
-tar xf msys2-base-i686-20150916.tar.xz
-popd
+if test -d ${MSYS_ROOT}
+then
+    echo Already Initialized. 
+else
+    pushd ~/.wine/drive_c
+    wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
+    tar xf msys2-base-i686-20150916.tar.xz
+    ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.
+    ALLOC_XVFB=true msys2-shell -c update-core
+    ALLOC_XVFB=true msys2-shell -c pacman -Su --noconfirm
+    ALLOC_XVFB=true msys2-shell -c pacman -S --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
+    popd
+fi
 
-ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.
-ALLOC_XVFB=true msys2-shell -c update-core
-ALLOC_XVFB=true msys2-shell -c pacman -Su --noconfirm
-ALLOC_XVFB=true msys2-shell -c pacman -S --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
+
