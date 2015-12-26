@@ -5,6 +5,7 @@
 
 # workaround wine staging bug 403
 export MSYS="winsymlinks=lnk"
+export TERM="xterm"
 
 if test "$WINEPREFIX"
 then
