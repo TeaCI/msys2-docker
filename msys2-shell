@@ -29,7 +29,8 @@ export WINEDEBUG=fixme-all
 SCRIPT_FILE=typescript.$$
 EXIT_CODE=exit_code.$$
 
-cd /root/.wine/drive_c/msys32 # FIXME
+echo ${MSYS_ROOT}
+cd ${MSYS_ROOT} # FIXME
 UNIXPWD=`pwd`
 WINPWD=`winepath -w ${UNIXPWD}`
 WINPWD=${WINPWD//\\/\/} # replace \ to /
