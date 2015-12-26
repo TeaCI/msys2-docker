@@ -13,3 +13,6 @@ tar xf msys2-base-i686-20150916.tar.xz
 popd
 
 ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.
+ALLOC_XVFB=true msys2-shell -c update-core
+ALLOC_XVFB=true msys2-shell -c pacman -Su --noconfirm
+ALLOC_XVFB=true msys2-shell -c pacman -S --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
