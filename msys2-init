@@ -12,8 +12,8 @@ then
     echo Already Initialized. 
 else
     pushd ~/.wine/drive_c
-    #wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
-    wget http://mirrors.ustc.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
+    wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
+    #wget http://mirrors.ustc.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
     tar xf msys2-base-i686-20150916.tar.xz
     ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.
     ALLOC_XVFB=true msys2-shell -c update-core
