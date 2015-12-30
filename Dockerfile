@@ -12,5 +12,5 @@ ENV LC_ALL en_US.UTF-8
 COPY msys2-env /etc/
 COPY msys2-shell /usr/bin/
 COPY msys2-init /usr/bin/
-RUN echo 45.59.69.178 repo.msys2.org >> /etc/hosts
+#RUN echo 45.59.69.178 repo.msys2.org >> /etc/hosts
 RUN msys2-init
