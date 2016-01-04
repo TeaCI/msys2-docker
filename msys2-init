@@ -25,8 +25,17 @@ else
     echo "Server = http://mirrors.ustc.edu.cn/msys2/REPOS/MSYS2/\$arch" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     echo "Server = http://mirrors.ustc.edu.cn/msys2/REPOS/MSYS2/\$arch" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     echo "Server = http://mirrors.ustc.edu.cn/msys2/REPOS/MSYS2/\$arch" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+    ALLOC_XVFB=true msys2-shell -c update-core || true
+    ALLOC_XVFB=true msys2-shell -c update-core || true
+    ALLOC_XVFB=true msys2-shell -c update-core || true
     ALLOC_XVFB=true msys2-shell -c update-core
-    ALLOC_XVFB=true msys2-shell -c pacman -Su --noconfirm
-    ALLOC_XVFB=true msys2-shell -c pacman -S --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
+    ALLOC_XVFB=true msys2-shell -c pacman -Su --needed --noconfirm || true
+    ALLOC_XVFB=true msys2-shell -c pacman -Su --needed --noconfirm || true
+    ALLOC_XVFB=true msys2-shell -c pacman -Su --needed --noconfirm || true
+    ALLOC_XVFB=true msys2-shell -c pacman -Su --needed --noconfirm
+    ALLOC_XVFB=true msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain || true
+    ALLOC_XVFB=true msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain || true
+    ALLOC_XVFB=true msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain || true
+    ALLOC_XVFB=true msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
     popd
 fi
