@@ -12,14 +12,15 @@ then
     echo Already Initialized. 
 else
     pushd ~/.wine/drive_c
-    wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
-    #wget http://mirrors.ustc.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
+    #wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
+    wget http://mirrors.ustc.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
     tar xf msys2-base-i686-20150916.tar.xz
     ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.
+    ALLOC_XVFB=true msys2-shell -c echo "Server = http://mirrors.ustc.edu.cn/msys2/REPOS/MINGW/i686" > /etc/pacman.d/mirrorlist.mingw32
+    ALLOC_XVFB=true msys2-shell -c echo "Server = http://mirrors.ustc.edu.cn/msys2/REPOS/MINGW/x86_64" > /etc/pacman.d/mirrorlist.mingw64
+    ALLOC_XVFB=true msys2-shell -c echo "Server = http://mirrors.ustc.edu.cn/msys2/REPOS/MSYS2/\$arch" > /etc/pacman.d/mirrorlist.msys
     ALLOC_XVFB=true msys2-shell -c update-core
     ALLOC_XVFB=true msys2-shell -c pacman -Su --noconfirm
     ALLOC_XVFB=true msys2-shell -c pacman -S --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
     popd
 fi
-
-
