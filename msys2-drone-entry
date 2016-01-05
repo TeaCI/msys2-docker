@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. /etc/msys2-env
+
+mkdir -p ${MSYS_ROOT}/`dirname ${DRONE_BUILD_DIR}`
+ln -sv ${DRONE_BUILD_DIR} ${MSYS_ROOT}/${DRONE_BUILD_DIR}

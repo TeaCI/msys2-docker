@@ -2,12 +2,12 @@
 
 set -e
 
-if [ "$DEBUG_WRAPPER" = "true" ]
+if [ "${DEBUG_WRAPPER}" = "true" ]
 then
     set -x
 fi
 
-if [ "$ALLOC_XVFB" = "true" ]
+if [ "${ALLOC_XVFB}" = "true" ]
 then
     export DISPLAY=:95
     Xvfb :95 -ac -reset -terminate -screen 0 800x600x16 2>/dev/null &
@@ -29,13 +29,19 @@ export WINEDEBUG=fixme-all
 SCRIPT_FILE=typescript.$$
 EXIT_CODE=exit_code.$$
 
-cd ${MSYS_ROOT} # FIXME
+if [ "${MSYS_INIT_DIR}" ]
+then
+    cd ${MSYS_INIT_DIR}
+else
+    cd ${MSYS_ROOT} # FIXME
+fi
+
 UNIXPWD=`pwd`
 WINPWD=`winepath -w ${UNIXPWD}`
 WINPWD=${WINPWD//\\/\/} # replace \ to /
 
 
-if [ "$DEBUG_WRAPPER" = "true" ]
+if [ "${DEBUG_WRAPPER}" = "true" ]
 then
     echo "MSYS2 shell in ${MSYS_ROOT} in Wine on Linux"
     echo "Entering MSYS2 shell >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -88,7 +94,7 @@ then
     exit ${exit_code}
 fi
 
-if [ "$DEBUG_WRAPPER" = "true" ]
+if [ "${DEBUG_WRAPPER}" = "true" ]
 then
     echo msys2-shell executed \`$COMMAND\` successfully.
 fi
