@@ -29,14 +29,17 @@ export WINEDEBUG=fixme-all
 SCRIPT_FILE=typescript.$$
 EXIT_CODE=exit_code.$$
 
-echo ${MSYS_ROOT}
 cd ${MSYS_ROOT} # FIXME
 UNIXPWD=`pwd`
 WINPWD=`winepath -w ${UNIXPWD}`
 WINPWD=${WINPWD//\\/\/} # replace \ to /
 
-echo
-echo "Entering MSYS2 shell >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+if [ "$DEBUG_WRAPPER" = "true" ]
+then
+    echo "MSYS2 shell in ${MSYS_ROOT} in Wine on Linux"
+    echo "Entering MSYS2 shell >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+fi
 
 if [ "$#" = "0" ]
 then
@@ -64,7 +67,11 @@ else
 fi
 sleep 1
 tail -F ${SCRIPT_FILE} --pid=$WINECONSOLE_PID 2> /dev/null || return 0
-echo "Leaving MSYS2 shell <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+if [ "$DEBUG_WRAPPER" = "true" ]
+then
+    echo "Leaving MSYS2 shell <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+fi
 
 rm -f ${SCRIPT_FILE}
 
@@ -81,4 +88,9 @@ then
     exit ${exit_code}
 fi
 
-echo msys2-shell executed \`$COMMAND\` successfully.
+if [ "$DEBUG_WRAPPER" = "true" ]
+then
+    echo msys2-shell executed \`$COMMAND\` successfully.
+fi
+#echo empty line
+echo
