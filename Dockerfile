@@ -14,4 +14,3 @@ COPY msys2-shell /usr/bin/
 COPY msys2-init /usr/bin/
 COPY msys2-drone-entry /usr/bin/
 RUN msys2-init
-ENTRYPOINT ["/usr/bin/msys2-drone-entry"]
