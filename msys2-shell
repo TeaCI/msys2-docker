@@ -50,12 +50,12 @@ fi
 if [ "$#" = "0" ]
 then
     cat > ${MSYS_ROOT}/tmp/command.sh
-    (wineconsole $MSYS_ROOT/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e /tmp/command.sh || echo \\\$? > ${EXIT_CODE})\"") &
+    (wineconsole ${MSYS_ROOT}/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e /tmp/command.sh || echo \\\$? > ${EXIT_CODE})\"") &
     WINECONSOLE_PID=$!
 elif [ "$1" = "-c" ]
 then
     COMMAND=${@:2}
-    (wineconsole $MSYS_ROOT/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e -c \\\"${COMMAND}\\\"|| echo \\\$? > ${EXIT_CODE})\"") &
+    (wineconsole ${MSYS_ROOT}/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e -c \\\"${COMMAND}\\\"|| echo \\\$? > ${EXIT_CODE})\"") &
     WINECONSOLE_PID=$!
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
@@ -66,7 +66,7 @@ else
     popd > /dev/null
     WINPATH=`winepath -w ${UNIXPATH}`
     COMMAND=${WINPATH}\\`basename $1`
-    (wineconsole $MSYS_ROOT/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e \\\"${COMMAND}\\\" || echo \\\$? > ${EXIT_CODE})\"") &
+    (wineconsole ${MSYS_ROOT}/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e \\\"${COMMAND}\\\" || echo \\\$? > ${EXIT_CODE})\"") &
     WINECONSOLE_PID=$!
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
