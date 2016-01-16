@@ -7,11 +7,11 @@ then
     set -x
 fi
 
-export ALLOC_XVFB=true
-if [ "${ALLOC_XVFB}" = "true" ]
+if [ "${DISPLAY}" = "" ]
 then
     export DISPLAY=:95
     Xvfb :95 -ac -reset -terminate -screen 0 800x600x16 2>/dev/null &
+    sleep 3
 fi
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]
@@ -26,12 +26,11 @@ fi
 . /etc/msys2-env
 
 export MSYSTEM=MSYS
-if [ "${WINEDEBUG}"="" ]
+if [ "${WINEDEBUG}" = "" ]
 then
     export WINEDEBUG=fixme-all
 fi
 
-SCRIPT_FILE=typescript.$$
 EXIT_CODE=exit_code.$$
 
 if [ "${MSYS_INIT_DIR}" ]
@@ -55,41 +54,34 @@ fi
 if [ "$#" = "0" ]
 then
     cat > ${MSYS_ROOT}/tmp/command.sh
-    (wineconsole ${MSYS_ROOT}/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e /tmp/command.sh || echo \\\$? > ${EXIT_CODE})\"") &
-    WINECONSOLE_PID=$!
+    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e < /tmp/command.sh || echo \$? > ${EXIT_CODE})" | tee
 elif [ "$1" = "-c" ]
 then
     COMMAND=${@:2}
-    (wineconsole ${MSYS_ROOT}/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e -c \\\"${COMMAND}\\\"|| echo \\\$? > ${EXIT_CODE})\"") &
-    WINECONSOLE_PID=$!
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
     echo \$ ${COMMAND}
+    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e -c \"${COMMAND}\" || echo \$? > ${EXIT_CODE})" | tee
 else
+set -x
     pushd `dirname $1` > /dev/null
     UNIXPATH=`pwd`
     popd > /dev/null
     WINPATH=`winepath -w ${UNIXPATH}`
-    COMMAND=${WINPATH}\\`basename $1`
-    (wineconsole ${MSYS_ROOT}/usr/bin/script.exe ${SCRIPT_FILE} -q -f -e -c "/usr/bin/bash.exe -l -c \"(cd \\\"${WINPWD}\\\"; bash -e \\\"${COMMAND}\\\" || echo \\\$? > ${EXIT_CODE})\"") &
-    WINECONSOLE_PID=$!
+    COMMAND_FILE=${WINPATH}\\`basename $1`
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
-    echo \$ ${COMMAND}
+    echo \$ ${COMMAND_FILE}
+    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e \"${COMMAND_FILE}\" || echo \$? > ${EXIT_CODE})" | tee
 fi
-sleep 3
-tail -F ${SCRIPT_FILE} --pid=$WINECONSOLE_PID 2> /dev/null || return 0
 
 if [ "$DEBUG_WRAPPER" = "true" ]
 then
     echo "Leaving MSYS2 shell <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 fi
 
-rm -f ${SCRIPT_FILE}
-
 wineserver -w
 
-sleep 3
 if test -f ${EXIT_CODE}
 then
     # clean up
@@ -104,5 +96,4 @@ if [ "${DEBUG_WRAPPER}" = "true" ]
 then
     echo msys2-shell executed \`$COMMAND\` successfully.
 fi
-#echo empty line
 echo
