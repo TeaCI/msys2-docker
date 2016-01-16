@@ -7,6 +7,7 @@ then
     set -x
 fi
 
+export ALLOC_XVFB=true
 if [ "${ALLOC_XVFB}" = "true" ]
 then
     export DISPLAY=:95
@@ -17,7 +18,8 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]
 then
     echo  Usage:  $0 "-c commandline"
     echo "      " $0 "script-file"
-    echo "      " $0
+    echo "      " cat script-file \| $0 
+    echo
     exit
 fi
 
