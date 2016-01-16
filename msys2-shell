@@ -74,7 +74,7 @@ else
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
     echo \$ ${COMMAND}
 fi
-sleep 1
+sleep 3
 tail -F ${SCRIPT_FILE} --pid=$WINECONSOLE_PID 2> /dev/null || return 0
 
 if [ "$DEBUG_WRAPPER" = "true" ]
@@ -86,7 +86,7 @@ rm -f ${SCRIPT_FILE}
 
 wineserver -w
 
-sleep 1
+sleep 3
 if test -f ${EXIT_CODE}
 then
     # clean up
