@@ -9,6 +9,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV TERM xterm
 COPY msys2-env /etc/
 COPY msys2-shell /usr/bin/
 COPY msys2-init /usr/bin/
