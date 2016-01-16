@@ -26,7 +26,10 @@ fi
 . /etc/msys2-env
 
 export MSYSTEM=MSYS
-export WINEDEBUG=fixme-all
+if [ "${WINEDEBUG}"="" ]
+then
+    export WINEDEBUG=fixme-all
+fi
 
 SCRIPT_FILE=typescript.$$
 EXIT_CODE=exit_code.$$

@@ -15,7 +15,7 @@ else
     #wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
     wget http://mirror.bit.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
     tar xf msys2-base-i686-20150916.tar.xz
-    ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done.
+    WINEDEBUG=+tid,+relay,+seh,+file,+ntdll ALLOC_XVFB=true msys2-shell -c echo Init MSYS2 done. 2>> ~/msys2.init.relay.log.txt
     echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
     echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
     echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
