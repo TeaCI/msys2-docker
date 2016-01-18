@@ -33,6 +33,17 @@ fi
 
 EXIT_CODE=exit_code.$$
 
+if [ "${DRONE_BUILD_DIR}" ]
+then
+    if ! [ -d ${MSYS_ROOT}/${DRONE_BUILD_DIR} ]
+    then
+        DRONE_BUILD_DIR_PARENT=$(dirname ${DRONE_BUILD_DIR})
+        mkdir -p ${MSYS_ROOT}/${DRONE_BUILD_DIR_PARENT}
+        ln -s ${DRONE_BUILD_DIR} ${MSYS_ROOT}/${DRONE_BUILD_DIR}
+    fi
+    MSYS_INIT_DIR=${MSYS_ROOT}/${DRONE_BUILD_DIR}
+fi
+
 if [ "${MSYS_INIT_DIR}" ]
 then
     cd ${MSYS_INIT_DIR}
