@@ -2,7 +2,7 @@
 
 set -e
 
-. /etc/msys2-env
+. /etc/msys32-env
 
 # hack - wineboot without display, create wineprefix in a quick way, workaround wineboot event timeout waiting for gecko and mono
 WINEDEBUG=-all DISPLAY=:55.0 wineboot; wineserver -w
@@ -15,7 +15,7 @@ else
     wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
     #wget http://mirror.bit.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
     tar xf msys2-base-i686-20150916.tar.xz
-    msys2-shell -c echo Init MSYS2 done.
+    msys32 -c echo Init MSYS2 done.
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
@@ -25,17 +25,17 @@ else
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MSYS2/\$arch" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MSYS2/\$arch" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MSYS2/\$arch" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
-    msys2-shell -c update-core || true
-    msys2-shell -c update-core || true
-    msys2-shell -c update-core || true
-    msys2-shell -c update-core
-    msys2-shell -c pacman -Su --needed --noconfirm || true
-    msys2-shell -c pacman -Su --needed --noconfirm || true
-    msys2-shell -c pacman -Su --needed --noconfirm || true
-    msys2-shell -c pacman -Su --needed --noconfirm
-    msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain || true
-    msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain || true
-    msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain || true
-    msys2-shell -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain
+    msys32 -c update-core || true
+    msys32 -c update-core || true
+    msys32 -c update-core || true
+    msys32 -c update-core
+    msys32 -c pacman -Su --needed --noconfirm || true
+    msys32 -c pacman -Su --needed --noconfirm || true
+    msys32 -c pacman -Su --needed --noconfirm || true
+    msys32 -c pacman -Su --needed --noconfirm
+    msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion || true
+    msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion || true
+    msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion || true
+    msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion
     popd
 fi

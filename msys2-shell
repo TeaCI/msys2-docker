@@ -23,9 +23,6 @@ then
     exit
 fi
 
-. /etc/msys2-env
-
-export MSYSTEM=MSYS
 if [ "${WINEDEBUG}" = "" ]
 then
     export WINEDEBUG=fixme-all

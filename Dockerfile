@@ -10,7 +10,12 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV TERM xterm
-COPY msys2-env /etc/
+COPY msys32-env /etc/
+COPY msys64-env /etc/
 COPY msys2-shell /usr/bin/
-COPY msys2-init /usr/bin/
-RUN msys2-init
+COPY msys32-init /usr/bin/
+COPY msys32 /usr/bin/
+COPY msys64 /usr/bin/
+COPY mingw32 /usr/bin/
+COPY mingw64 /usr/bin/
+RUN msys32-init
