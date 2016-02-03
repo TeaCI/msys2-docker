@@ -4,7 +4,7 @@
 #export STAGING_WRITECOPY=1
 
 # workaround wine staging bug 403
-export MSYS="winsymlinks=lnk"
+export MSYS="winsymlinks:lnk"
 export TERM="xterm"
 
 if test "$WINEPREFIX"
