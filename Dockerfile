@@ -19,3 +19,4 @@ COPY msys64 /usr/bin/
 COPY mingw32 /usr/bin/
 COPY mingw64 /usr/bin/
 RUN msys32-init
+RUN apt-get clean -y

@@ -17,6 +17,7 @@ else
     wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
     #wget http://mirror.bit.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
     tar xf msys2-base-i686-20150916.tar.xz
+    rm msys2-base-i686-20150916.tar.xz
     msys32 -c echo Init MSYS2 done.
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
     #echo "Server = http://mirror.bit.edu.cn/msys2/REPOS/MINGW/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
@@ -39,5 +40,6 @@ else
     msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion || true
     msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion || true
     msys32 -c pacman -S --needed --noconfirm base-devel msys2-devel mingw-w64-i686-toolchain git subversion
+    msys32 -c rm -rf /var/cache/pacman/pkg/*
     popd
 fi
