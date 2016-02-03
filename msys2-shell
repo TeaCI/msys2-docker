@@ -7,6 +7,17 @@ then
     set -x
 fi
 
+# workaround https://bugs.wine-staging.com/show_bug.cgi?id=403
+if [ "${DRONE}" = "true" ]
+then
+    if ! [ -d /drone/wineprefix ]
+    then
+        cp -r "${WINEPREFIX}" /drone/wineprefix
+    fi
+    export WINEPREFIX=/drone/wineprefix
+    export MSYS_ROOT=${WINEPREFIX}/drive_c/msys32
+fi
+
 if [ "${DISPLAY}" = "" ]
 then
     export DISPLAY=:95
