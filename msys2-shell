@@ -12,7 +12,7 @@ if [ "${DRONE}" = "true" ]
 then
     if ! [ -d /drone/wineprefix ]
     then
-        mv -r "${WINEPREFIX}" /drone/wineprefix
+        mv "${WINEPREFIX}" /drone/wineprefix
     fi
     export WINEPREFIX=/drone/wineprefix
     export MSYS_ROOT=${WINEPREFIX}/drive_c/msys32
