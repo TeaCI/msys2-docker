@@ -12,7 +12,7 @@ if [ "${DRONE}" = "true" ]
 then
     if ! [ -d /drone/wineprefix ]
     then
-        cp -r "${WINEPREFIX}" /drone/wineprefix
+        mv -r "${WINEPREFIX}" /drone/wineprefix
     fi
     export WINEPREFIX=/drone/wineprefix
     export MSYS_ROOT=${WINEPREFIX}/drive_c/msys32
@@ -106,8 +106,12 @@ then
     # clean up
     exit_code=$(cat ${EXIT_CODE})
     rm -f ${EXIT_CODE}
-    echo msys2-shell executed \`$COMMAND\` failed with exit code ${exit_code}.
-    echo
+
+    if [ "${DEBUG_WRAPPER}" = "true" ]
+    then
+        echo msys2-shell executed \`$COMMAND\` failed with exit code ${exit_code}.
+        echo
+    fi
     exit ${exit_code}
 fi
 
