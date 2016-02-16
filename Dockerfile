@@ -20,3 +20,4 @@ COPY mingw32 /usr/bin/
 COPY mingw64 /usr/bin/
 RUN msys32-init
 RUN apt-get clean -y
+RUN msys32 -c cp -f /usr/bin/false /usr/bin/tput
