@@ -8,7 +8,7 @@ build:
 notify:
   irc:
     prefix: build
-    nick: msys32_docker_image
+    nick: msys32-docker
     channel: msys2-ci
     server:
       host: irc.oftc.net
