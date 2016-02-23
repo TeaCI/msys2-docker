@@ -1,0 +1,28 @@
+debug: true
+
+build:
+  image: drone/golang:1.5
+  commands:
+    - echo 'nothing to do'
+
+notify:
+  irc:
+    prefix: build
+    nick: msys32_docker_image
+    channel: msys2-ci
+    server:
+      host: irc.oftc.net
+      port: 6667
+
+publish:
+  docker:
+    username: fracting
+    password: $$DOCKER_PASS
+    email: $$DOCKER_EMAIL
+    repo: fracting/msys32
+    tag:
+      - "test_docker"
+    when:
+      repo: fracting/msys32
+      branch: master
+      event: push
