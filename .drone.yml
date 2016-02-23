@@ -23,14 +23,6 @@ publish:
     tag:
       - "latest"
       - "w1.9.4-m2.4.1-2"
-    load: docker/image.tar
-    save:
-      destination: docker/image.tar
-      tag: "latest"
     when:
       repo: fracting/msys32-docker
       branch: master
-
-cache:
-  mount:
-    - docker/image.tar
