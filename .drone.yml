@@ -23,5 +23,5 @@ publish:
     tag:
       - "test_docker"
     when:
-      repo: fracting/msys32
+      repo: fracting/msys32-docker
       branch: master
