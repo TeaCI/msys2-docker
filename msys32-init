@@ -7,7 +7,6 @@ set -e
 # hack - wineboot without display, create wineprefix in a quick way, workaround wineboot event timeout waiting for gecko and mono
 WINEDEBUG=-all DISPLAY=:55.0 wineboot; wineserver -w
 WINEDEBUG=-all DISPLAY=:55.0 winetricks nocrashdialog; wineserver -w
-WINEDEBUG=-all DISPLAY=:55.0 winetricks shcore=disabled; wineserver -w # workaround https://bugs.wine-staging.com/show_bug.cgi?id=642
 
 if test -d ${MSYS_ROOT}
 then
