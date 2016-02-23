@@ -22,6 +22,14 @@ publish:
     repo: fracting/msys32
     tag:
       - "test_docker"
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: "test_docker"
     when:
       repo: fracting/msys32-docker
       branch: master
+
+cache:
+  mount:
+    - docker/image.tar
