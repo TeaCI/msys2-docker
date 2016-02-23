@@ -25,4 +25,3 @@ publish:
     when:
       repo: fracting/msys32
       branch: master
-      event: push
