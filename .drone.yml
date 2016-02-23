@@ -21,11 +21,12 @@ publish:
     email: $$DOCKER_EMAIL
     repo: fracting/msys32
     tag:
-      - "test_docker"
+      - "latest"
+      - "w1.9.4-m2.4.1-1"
     load: docker/image.tar
     save:
       destination: docker/image.tar
-      tag: "test_docker"
+      tag: "latest"
     when:
       repo: fracting/msys32-docker
       branch: master
