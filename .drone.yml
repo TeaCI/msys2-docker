@@ -20,7 +20,7 @@ publish:
     repo: fracting/msys32
     tag:
       - "latest"
-      - "w1.9.5-m2.5.0-1"
+      - "w1.9.5-m2.5.0-2"
     when:
       repo: fracting/msys32-docker
       branch: master
