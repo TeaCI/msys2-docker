@@ -10,9 +10,9 @@ WINEDEBUG=-all DISPLAY=:55.0 winetricks nocrashdialog; wineserver -w
 
 if test -d ${MSYS_ROOT}
 then
-    echo Already Initialized. 
+    echo Already initialized.
 else
-    pushd ~/.wine/drive_c
+    pushd ${WINEPREFIX}/drive_c
     wget http://repo.msys2.org/distrib/i686/msys2-base-i686-20150916.tar.xz
     #wget http://mirror.bit.edu.cn/msys2/Base/i686/msys2-base-i686-20150916.tar.xz
     tar xf msys2-base-i686-20150916.tar.xz
@@ -45,5 +45,9 @@ else
     msys32 -c pacman -S --needed --noconfirm --noprogressbar base-devel msys2-devel mingw-w64-i686-toolchain git subversion
 
     msys32 -c rm -rf /var/cache/pacman/pkg/*
+    popd
+
+    pushd ${MSYS_ROOT}
+    WINEDEBUG=-all DISPLAY=:55.0 wine wineconsole --backend=curses autorebase.bat; wineserver -w
     popd
 fi
