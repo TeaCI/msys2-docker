@@ -40,5 +40,6 @@ else
 
     pushd ${MSYS_ROOT}
     WINEDEBUG=-all DISPLAY=:55.0 wine wineconsole --backend=curses autorebase.bat; wineserver -w
+    reset
     popd
 fi
