@@ -31,15 +31,5 @@ else
 
     msys32 -c update-core --noconfirm --noprogressbar
 
-    #msys32 -c pacman -Su --needed --noconfirm --noprogressbar
-
-    #msys32 -c pacman -S --needed --noconfirm --noprogressbar base-devel msys2-devel mingw-w64-i686-toolchain git subversion
-
-    #msys32 -c rm -rf /var/cache/pacman/pkg/*
-    popd
-
-    pushd ${MSYS_ROOT}
-    WINEDEBUG=-all DISPLAY=:55.0 wine wineconsole --backend=curses autorebase.bat; wineserver -w
-    reset
     popd
 fi

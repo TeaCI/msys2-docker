@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. /etc/msys32-env
+
+pushd ${MSYS_ROOT}
+WINEDEBUG=-all DISPLAY=:55.0 wine wineconsole --backend=curses autorebase.bat > /dev/null ; wineserver -w
+popd
