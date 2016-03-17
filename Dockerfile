@@ -24,10 +24,10 @@ COPY mingw64 /usr/bin/
 RUN msys32-init
 RUN msys32 -c pacman -Sy --noconfirm --noprogressbar pacman
 RUN msys32 -c update-core --noconfirm --noprogressbar
-RUN msys32 -c pacman -Su --needed --noconfirm --noprogressbar && msys32 -c pacman -Scc
-RUN msys32 -c pacman -S --needed --noconfirm --noprogressbar base-devel && msys32 -c pacman -Scc
-RUN msys32 -c pacman -S --needed --noconfirm --noprogressbar msys2-devel && msys32 -c pacman -Scc
-RUN msys32 -c pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-toolchain && msys32 -c pacman -Scc
-RUN msys32 -c pacman -S --needed --noconfirm --noprogressbar git subversion && msys32 -c pacman -Scc
+RUN msys32 -c "pacman -Su --needed --noconfirm --noprogressbar && pacman -Scc"
+RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc"
+RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar msys2-devel && pacman -Scc"
+RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-toolchain && pacman -Scc"
+RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar git subversion && pacman -Scc"
 RUN msys32 -c cp -f /usr/bin/false /usr/bin/tput
 RUN msys2-rebase
