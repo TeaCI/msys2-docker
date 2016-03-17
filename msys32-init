@@ -27,9 +27,5 @@ else
     echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
 
-    msys32 -c pacman -Sy --noconfirm --noprogressbar pacman
-
-    msys32 -c update-core --noconfirm --noprogressbar
-
     popd
 fi
