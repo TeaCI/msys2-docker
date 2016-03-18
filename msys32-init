@@ -22,7 +22,7 @@ if test -d ${MSYS_ROOT}
 then
     echo Already initialized.
 else
-    pushd ${WINEPREFIX}/drive_c
+    pushd ${WINEPREFIX}/drive_c > /dev/null
     wget https://mirrors.tea-ci.org/msys2/distrib/i686/msys2-base-i686-20160205.tar.xz
     tar xf msys2-base-i686-*.tar.xz
     rm msys2-base-i686-*.tar.xz
@@ -37,5 +37,5 @@ else
     echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
 
-    popd
+    popd > /dev/null
 fi
