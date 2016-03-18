@@ -8,6 +8,16 @@ set -e
 WINEDEBUG=-all DISPLAY=:55.0 wineboot; wineserver -w
 WINEDEBUG=-all DISPLAY=:55.0 winetricks nocrashdialog; wineserver -w
 
+# Latest mintty requires Lucida Console font
+cat > /tmp/lucida.reg << eof
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Wine\Fonts\Font Replacements]
+"Lucida Console"="Droid Sand Mono"
+eof
+WINEDEBUG=-all DISPLAY=:55.0 regedit /tmp/lucida.reg ; wineserver -w
+rm /tmp/lucida.reg
+
 if test -d ${MSYS_ROOT}
 then
     echo Already initialized.
