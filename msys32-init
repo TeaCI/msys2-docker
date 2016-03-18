@@ -13,7 +13,7 @@ cat > /tmp/lucida.reg << eof
 REGEDIT4
 
 [HKEY_CURRENT_USER\Software\Wine\Fonts\Font Replacements]
-"Lucida Console"="Droid Sand Mono"
+"Lucida Console"="Droid Sans Mono"
 eof
 WINEDEBUG=-all DISPLAY=:55.0 regedit /tmp/lucida.reg ; wineserver -w
 rm /tmp/lucida.reg
