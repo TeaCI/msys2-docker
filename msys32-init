@@ -12,7 +12,7 @@ WINEDEBUG=-all DISPLAY=:55.0 winetricks nocrashdialog; wineserver -w
 cat > /tmp/lucida.reg << eof
 REGEDIT4
 
-[HKEY_CURRENT_USER\Software\Wine\Fonts\Font Replacements]
+[HKEY_CURRENT_USER\Software\Wine\Fonts\Replacements]
 "Lucida Console"="Droid Sans Mono"
 eof
 WINEDEBUG=-all DISPLAY=:55.0 regedit /tmp/lucida.reg ; wineserver -w
