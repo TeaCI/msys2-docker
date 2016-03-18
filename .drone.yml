@@ -19,7 +19,7 @@ publish:
     email: $$DOCKER_EMAIL
     repo: fracting/msys32
     tag:
-        #- "latest"
+      - "latest"
       - "w1.9.5-m2.5.0-4"
     when:
       repo: fracting/msys32-docker
