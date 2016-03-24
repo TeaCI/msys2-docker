@@ -1,15 +1,15 @@
 build:
   image: drone/golang:1.5
   commands:
-    - echo 'Build teaci/msys32 image using drone docker plugin...'
+    - echo 'Build teaci/mingw32 image using drone docker plugin...'
 
 notify:
   irc:
     prefix: build
-    nick: msys32-docker
-    channel: msys2-ci
+    nick: mingw32-docker
+    channel: wine-ci
     server:
-      host: irc.oftc.net
+      host: chat.freenode.net
       port: 6667
 
 publish:
@@ -17,10 +17,10 @@ publish:
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: teaci/msys32
+    repo: teaci/mingw32
     tag:
       - "latest"
       - "w1.9.5-m2.5.0-6"
     when:
-      repo: fracting/msys32-docker
+      repo: teaci/mingw32-docker
       branch: master
