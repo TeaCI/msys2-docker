@@ -22,5 +22,5 @@ publish:
       - "latest"
       - "w1.9.5-m2.5.0-6"
     when:
-      repo: teaci/mingw32-docker
+      repo: TeaCI/mingw32-docker # case sensitive
       branch: master
