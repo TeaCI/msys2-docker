@@ -1,7 +1,7 @@
 build:
   image: drone/golang:1.5
   commands:
-    - echo 'nothing to do'
+    - echo 'Build teaci/msys32 image using drone docker plugin...'
 
 notify:
   irc:
