@@ -1,7 +1,9 @@
 build:
-  image: drone/golang:1.5
+  image: teaci/mingw32:testing
+  shell: msys32
+  pull: true
   commands:
-    - echo 'Build teaci/mingw32 image using drone docker plugin...'
+    - echo 'Clone teaci/mingw32 to teaci/msys32 using drone docker plugin...'
 
 notify:
   irc:
@@ -17,10 +19,10 @@ publish:
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: teaci/mingw32
+    repo: teaci/msys32
     tag:
       - "latest"
       - "w1.9.5-m2.5.0-6"
     when:
       repo: TeaCI/mingw32-docker # case sensitive
-      branch: master
+      branch: msys32 # only build msys32 image in msys32 branch
