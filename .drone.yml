@@ -19,7 +19,7 @@ publish:
     email: $$DOCKER_EMAIL
     repo: teaci/mingw32
     tag:
-      - "latest"
+      - "testing"
       - "w1.9.5-m2.5.0-6"
     when:
       repo: TeaCI/mingw32-docker # case sensitive
