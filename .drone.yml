@@ -1,5 +1,5 @@
 build:
-  image: teaci/mingw32:testing
+  image: teaci/msys32:testing
   shell: msys32
   pull: true
   commands:
@@ -8,13 +8,18 @@ build:
     - cd zlib
     - makepkg --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
     - cd ..
+    - echo 'Testing MinGW zlib package'
+    - svn co https://github.com/Alexpux/MINGW-packages/trunk/zlib
+    - cd mingw-w64-zlib
+    - makepkg-mingw --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
+    - cd ..
     - echo 'All test passed'
-    - echo 'Clone teaci/mingw32:testing to teaci/msys32:latest using drone docker plugin...'
+    - echo 'Clone teaci/msys32:testing to teaci/msys32:latest using drone docker plugin...'
 
 notify:
   irc:
     prefix: build
-    nick: mingw32-docker
+    nick: msys32-docker
     channel: wine-ci
     server:
       host: chat.freenode.net
@@ -29,5 +34,5 @@ publish:
     tag:
       - "latest"
     when:
-      repo: TeaCI/mingw32-docker # case sensitive
-      branch: msys32 # only build msys32 image in msys32 branch.
+      repo: TeaCI/msys32-docker # case sensitive
+      branch: release # only build latest tag in release branch.
