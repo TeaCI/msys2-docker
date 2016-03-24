@@ -24,15 +24,3 @@ publish:
     when:
       repo: fracting/msys32-docker
       branch: master
-
-  docker:
-    username: $$DOCKER_USER
-    password: $$DOCKER_PASS
-    email: $$DOCKER_EMAIL
-    repo: teaci/mingw32
-    tag:
-      - "latest"
-      - "w1.9.5-m2.5.0-6"
-    when:
-      repo: fracting/msys32-docker
-      branch: master
