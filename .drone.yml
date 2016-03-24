@@ -3,7 +3,13 @@ build:
   shell: msys32
   pull: true
   commands:
-    - echo 'Clone teaci/mingw32 to teaci/msys32 using drone docker plugin...'
+    - echo 'Testing MSYS2 zlib package'
+    - svn co https://github.com/Alexpux/MSYS2-packages/trunk/zlib
+    - cd zlib
+    - makepkg --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
+    - cd ..
+    - echo 'All test passed'
+    - echo 'Clone teaci/mingw32:testing to teaci/msys32:latest using drone docker plugin...'
 
 notify:
   irc:
@@ -19,10 +25,9 @@ publish:
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: teaci/msys32
+    repo: teaci/msys32 # dockerhub repo, don't confused with github repo.
     tag:
       - "latest"
-      - "w1.9.5-m2.5.0-6"
     when:
       repo: TeaCI/mingw32-docker # case sensitive
-      branch: msys32 # only build msys32 image in msys32 branch
+      branch: msys32 # only build msys32 image in msys32 branch.
