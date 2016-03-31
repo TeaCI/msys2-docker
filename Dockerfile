@@ -1,3 +1,3 @@
-FROM teaci/mingw32:testing
+FROM teaci/msys32:testing
 MAINTAINER Qian Hong <qhong@codeweavers.com>
-# teaci/msys32 is just a clone of teaci/mingw32
+# teaci/msys32:latest is just a clone of teaci/msys32:testing.
