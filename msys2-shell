@@ -73,14 +73,14 @@ fi
 if [ "$#" = "0" ]
 then
     cat > ${MSYS_ROOT}/tmp/command.sh
-    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e < /tmp/command.sh || echo \$? > ${EXIT_CODE})" | tr -d '\r'
+    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e < /tmp/command.sh || echo \$? > ${EXIT_CODE})" | stdbuf -o0 -e0 tr -d '\r'
 elif [ "$1" = "-c" ]
 then
     COMMAND=${@:2}
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
     echo \$ ${COMMAND}
-    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e -c \"${COMMAND}\" || echo \$? > ${EXIT_CODE})" | tr -d '\r'
+    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e -c \"${COMMAND}\" || echo \$? > ${EXIT_CODE})" | stdbuf -o0 -e0 tr -d '\r'
 else
 set -x
     pushd `dirname $1` > /dev/null
@@ -91,7 +91,7 @@ set -x
     # Emulate MSYS2 COMMAND line prompt
     echo ${USER}@${HOSTNAME} ${MSYSTEM} ${WINPWD}
     echo \$ ${COMMAND_FILE}
-    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e \"${COMMAND_FILE}\" || echo \$? > ${EXIT_CODE})" | tr -d '\r'
+    wine ${MSYS_ROOT}/usr/bin/mintty.exe --log - -e /usr/bin/bash.exe -l -c "(cd \"${WINPWD}\"; bash -e \"${COMMAND_FILE}\" || echo \$? > ${EXIT_CODE})" | stdbuf -o0 -e0 tr -d '\r'
 fi
 
 if [ "$DEBUG_WRAPPER" = "true" ]
