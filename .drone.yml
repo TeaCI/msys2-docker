@@ -14,6 +14,7 @@ notify:
 
 publish:
   docker:
+    file: Dockerfile.32
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
