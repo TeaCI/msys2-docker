@@ -5,4 +5,4 @@ set -e
 source /etc/msys64-env
 export MSYSTEM=MINGW64
 
-echo FIXME not implemented yet
+msys2-shell "$@"

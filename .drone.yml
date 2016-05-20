@@ -14,11 +14,11 @@ notify:
 
 publish:
   docker:
-    file: Dockerfile.32
+    file: Dockerfile.64
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: teaci/msys32
+    repo: teaci/msys64
     tag:
       - "testing"
       - "w1.9.10-m2.5.1-1"
@@ -27,11 +27,11 @@ publish:
       branch: master
 
   docker:
-    file: Dockerfile.64
+    file: Dockerfile.32
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: teaci/msys64
+    repo: teaci/msys32
     tag:
       - "testing"
       - "w1.9.10-m2.5.1-1"
