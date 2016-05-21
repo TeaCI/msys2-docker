@@ -1,5 +1,5 @@
 build:
-  image: teaci/msys$$arch:testing
+  image: teaci/msys$$arch:latest
   shell: msys$$arch
   pull: true
   commands:
