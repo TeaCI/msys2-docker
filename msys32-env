@@ -7,6 +7,7 @@
 # disable this workaround since aufs supports xattr. For https://github.com/Alexpux/Cygwin/issues/14
 #export MSYS="winsymlinks:lnk"
 export TERM="xterm"
+export MSYS_ARCH=msys32
 
 if test "$WINEPREFIX"
 then
