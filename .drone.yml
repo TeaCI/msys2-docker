@@ -46,7 +46,7 @@ publish:
     repo: teaci/msys$$arch # dockerhub repo, don't confused with github repo.
     tag:
       - "latest"
-      - "w1.9.10-m2.5.1-3"
+      - "w1.9.10-m2.5.1-4"
     when:
       repo: TeaCI/msys32-docker # case sensitive
       branch: release # only build latest tag in release branch.
