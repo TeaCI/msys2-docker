@@ -15,12 +15,12 @@ COPY msys64 /usr/bin/
 COPY mingw32 /usr/bin/
 COPY mingw64 /usr/bin/
 RUN msys64-init
-RUN msys64 -c pacman -Sy --noconfirm --noprogressbar pacman
+RUN msys64 -c "pacman -Syy --noconfirm --noprogressbar pacman"
 RUN msys64 -c "pacman -Suu --needed --noconfirm --noprogressbar"
 RUN msys64 -c "pacman -Suu --needed --noconfirm --noprogressbar && pacman -Scc --noconfirm"
 RUN msys64 -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc --noconfirm"
 RUN msys64 -c "pacman -S --needed --noconfirm --noprogressbar msys2-devel && pacman -Scc --noconfirm"
 RUN msys64 -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-x86_64-toolchain && pacman -Scc --noconfirm"
 RUN msys64 -c "pacman -S --needed --noconfirm --noprogressbar git subversion && pacman -Scc --noconfirm"
-RUN msys64 -c cp -f /usr/bin/false /usr/bin/tput
+RUN msys64 -c "cp -f /usr/bin/false /usr/bin/tput"
 #RUN msys2-rebase rebase is not required for 64 bit
