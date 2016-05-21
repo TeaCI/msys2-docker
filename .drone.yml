@@ -16,6 +16,7 @@ build:
     - echo 'Testing msys2-runtime package'
     - svn co https://github.com/Alexpux/MSYS2-packages/trunk/msys2-runtime
     - cd msys2-runtime
+    - pacman -S --noconfirm mingw-w64-cross-crt-git
     - makepkg --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
     - cd ..
 
