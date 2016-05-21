@@ -1,7 +1,7 @@
 FROM teaci/wine-staging
 MAINTAINER Qian Hong <qhong@codeweavers.com>
 # Work around https://bugs.wine-staging.com/show_bug.cgi?id=626
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.5.2-1ubuntu2_i386.deb && wget http://120.198.244.27:9999/security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.5.2-1ubuntu2_amd64.deb && dpkg -i libfreetype6_2.5.2-1ubuntu2_amd64.deb libfreetype6_2.5.2-1ubuntu2_i386.deb
+RUN wget http://security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.5.2-1ubuntu2_i386.deb && wget http://security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.5.2-1ubuntu2_amd64.deb && dpkg -i libfreetype6_2.5.2-1ubuntu2_amd64.deb libfreetype6_2.5.2-1ubuntu2_i386.deb
 ENV WINPTY_SHOW_CONSOLE 1
 COPY msys32-env /etc/
 COPY msys64-env /etc/
