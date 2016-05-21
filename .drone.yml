@@ -21,7 +21,7 @@ publish:
     repo: teaci/msys64
     tag:
       - "testing"
-      - "w1.9.10-m2.5.1-1"
+      - "w1.9.10-m2.5.1-2"
     when:
       repo: TeaCI/msys32-docker # case sensitive
       branch: master
@@ -34,7 +34,7 @@ publish:
     repo: teaci/msys32
     tag:
       - "testing"
-      - "w1.9.10-m2.5.1-1"
+      - "w1.9.10-m2.5.1-2"
     when:
       repo: TeaCI/msys32-docker # case sensitive
       branch: master
