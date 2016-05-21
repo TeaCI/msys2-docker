@@ -1,7 +1,7 @@
 FROM teaci/wine-staging
 MAINTAINER Qian Hong <qhong@codeweavers.com>
 # Work around https://bugs.wine-staging.com/show_bug.cgi?id=626
-RUN apt-get install -y --reinstall libfreetype6
+RUN apt-get install -y --force-yes --reinstall libfreetype6=2.5.2-1ubuntu2 libfreetype6-dev=2.5.2-1ubuntu2
 ENV WINPTY_SHOW_CONSOLE 1
 COPY msys32-env /etc/
 COPY msys64-env /etc/
