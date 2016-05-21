@@ -1,7 +1,9 @@
 build:
   image: drone/golang:1.5
   commands:
-    - echo 'Build teaci/msys32:testing image using drone docker plugin...'
+    - export msys_arch=$$arch
+    - echo 'Build teaci/msys$$arch:testing image using drone docker plugin...'
+    - ./generate.sh
 
 notify:
   irc:
@@ -14,27 +16,19 @@ notify:
 
 publish:
   docker:
-    file: Dockerfile.64
+    file: Dockerfile.$$arch
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: teaci/msys64
+    repo: teaci/msys$$arch
     tag:
       - "testing"
-      - "w1.9.10-m2.5.1-2"
+      - "w1.9.10-m2.5.1-3"
     when:
       repo: TeaCI/msys32-docker # case sensitive
       branch: master
 
-  docker:
-    file: Dockerfile.32
-    username: $$DOCKER_USER
-    password: $$DOCKER_PASS
-    email: $$DOCKER_EMAIL
-    repo: teaci/msys32
-    tag:
-      - "testing"
-      - "w1.9.10-m2.5.1-2"
-    when:
-      repo: TeaCI/msys32-docker # case sensitive
-      branch: master
+matrix:
+  arch:
+    - 64
+    - 32

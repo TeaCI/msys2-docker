@@ -1,0 +1,12 @@
+RUN msys@arch@-init
+RUN msys@arch@ -c "pacman -Syy --noconfirm --noprogressbar pacman"
+RUN msys@arch@ -c "pacman -Suu --needed --noconfirm --noprogressbar"
+RUN msys@arch@ -c "pacman -Suu --needed --noconfirm --noprogressbar && pacman -Scc --noconfirm"
+RUN msys@arch@ -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc --noconfirm"
+RUN msys@arch@ -c "pacman -S --needed --noconfirm --noprogressbar msys2-devel && pacman -Scc --noconfirm"
+RUN msys@arch@ -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-@target@-toolchain && pacman -Scc --noconfirm"
+RUN msys@arch@ -c "pacman -S --needed --noconfirm --noprogressbar git subversion && pacman -Scc --noconfirm"
+RUN msys@arch@ -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-cross-crt-git" # FIXME: investigate mingw-w64-cross-crt-clang-git issue
+RUN msys@arch@ -c "cp -f /usr/bin/false /usr/bin/tput"
+# WARN msys2-rebase rebase is not required for 64 bit
+RUN msys2-rebase
