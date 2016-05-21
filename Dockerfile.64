@@ -1,0 +1,3 @@
+FROM teaci/msys64:testing
+MAINTAINER Qian Hong <qhong@codeweavers.com>
+# teaci/msys64:latest is just a clone of teaci/msys64:testing.

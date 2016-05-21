@@ -1,23 +1,44 @@
 build:
-  image: teaci/msys32:testing
-  shell: msys32
-  pull: true
-  commands:
-    - echo 'Prepare'
-    - git config --global user.email "teaci@users.noreply.github.com"
-    - git config --global user.name "Tea CI"
-    - echo 'Testing MSYS2 zlib package'
-    - svn co https://github.com/Alexpux/MSYS2-packages/trunk/zlib
-    - cd zlib
-    - makepkg --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
-    - cd ..
-    - echo 'Testing MinGW zlib package'
-    - svn co https://github.com/Alexpux/MINGW-packages/trunk/mingw-w64-zlib
-    - cd mingw-w64-zlib
-    - makepkg-mingw --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
-    - cd ..
-    - echo 'All test passed'
-    - echo 'Clone teaci/msys32:testing to teaci/msys32:latest using drone docker plugin...'
+  msys64:
+    image: teaci/msys64:testing
+    shell: msys64
+    pull: true
+    commands:
+      - echo 'Prepare'
+      - git config --global user.email "teaci@users.noreply.github.com"
+      - git config --global user.name "Tea CI"
+      - echo 'Testing MSYS2 zlib package'
+      - svn co https://github.com/Alexpux/MSYS2-packages/trunk/zlib
+      - cd zlib
+      - makepkg --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
+      - cd ..
+      - echo 'Testing MinGW zlib package'
+      - svn co https://github.com/Alexpux/MINGW-packages/trunk/mingw-w64-zlib
+      - cd mingw-w64-zlib
+      - makepkg-mingw --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
+      - cd ..
+      - echo 'All test passed'
+      - echo 'Clone teaci/msys64:testing to teaci/msys64:latest using drone docker plugin...'
+  msys32:
+    image: teaci/msys32:testing
+    shell: msys32
+    pull: true
+    commands:
+      - echo 'Prepare'
+      - git config --global user.email "teaci@users.noreply.github.com"
+      - git config --global user.name "Tea CI"
+      - echo 'Testing MSYS2 zlib package'
+      - svn co https://github.com/Alexpux/MSYS2-packages/trunk/zlib
+      - cd zlib
+      - makepkg --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
+      - cd ..
+      - echo 'Testing MinGW zlib package'
+      - svn co https://github.com/Alexpux/MINGW-packages/trunk/mingw-w64-zlib
+      - cd mingw-w64-zlib
+      - makepkg-mingw --noconfirm --noprogressbar --skippgpcheck --nocheck --syncdeps --rmdeps --cleanbuild
+      - cd ..
+      - echo 'All test passed'
+      - echo 'Clone teaci/msys32:testing to teaci/msys32:latest using drone docker plugin...'
 
 notify:
   irc:
@@ -30,13 +51,26 @@ notify:
 
 publish:
   docker:
+    file: Dockerfile.64
+    username: $$DOCKER_USER
+    password: $$DOCKER_PASS
+    email: $$DOCKER_EMAIL
+    repo: teaci/msys64 # dockerhub repo, don't confused with github repo.
+    tag:
+      - "latest"
+      - "w1.9.10-m2.5.1-2"
+    when:
+      repo: TeaCI/msys32-docker # case sensitive
+      branch: release # only build latest tag in release branch.
+  docker:
+    file: Dockerfile.32
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
     repo: teaci/msys32 # dockerhub repo, don't confused with github repo.
     tag:
       - "latest"
-      - "w1.9.10-m2.5.1-1"
+      - "w1.9.10-m2.5.1-2"
     when:
       repo: TeaCI/msys32-docker # case sensitive
       branch: release # only build latest tag in release branch.
