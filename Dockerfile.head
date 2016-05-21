@@ -7,7 +7,8 @@ ENV WINPTY_SHOW_CONSOLE 1
 COPY msys32-env /etc/
 COPY msys64-env /etc/
 COPY msys2-shell /usr/bin/
-COPY msys2-rebase /usr/bin/
+COPY msys32-rebase /usr/bin/
+COPY msys64-rebase /usr/bin/
 COPY msys32-init /usr/bin/
 COPY msys64-init /usr/bin/
 COPY msys32 /usr/bin/
