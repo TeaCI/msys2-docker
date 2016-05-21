@@ -16,7 +16,7 @@ COPY mingw32 /usr/bin/
 COPY mingw64 /usr/bin/
 # Installing 64 bit MSYS2
 RUN msys64-init
-RUN msys64 -c "pacman -Sy --needed --noconfirm --noprogressbar pacman"
+RUN msys64 -c "pacman -Syy --needed --noconfirm --noprogressbar pacman"
 RUN msys64 -c "pacman -Suu --needed --noconfirm --noprogressbar"
 RUN msys64 -c "pacman -Suu --needed --noconfirm --noprogressbar && pacman -Scc --noconfirm"
 RUN msys64 -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc --noconfirm"
@@ -27,7 +27,7 @@ RUN msys64 -c "cp -f /usr/bin/false /usr/bin/tput"
 #RUN msys2-rebase rebase is not required for 64 bit
 # Installing 32 bit MSYS2
 RUN msys32-init
-RUN msys32 -c "pacman -Sy --needed --noconfirm --noprogressbar pacman"
+RUN msys32 -c "pacman -Syy --needed --noconfirm --noprogressbar pacman"
 RUN msys32 -c "pacman -Suu --needed --noconfirm --noprogressbar"
 RUN msys32 -c "pacman -Suu --needed --noconfirm --noprogressbar && pacman -Scc --noconfirm"
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc --noconfirm"
