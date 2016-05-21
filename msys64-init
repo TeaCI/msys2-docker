@@ -34,8 +34,8 @@ else
     echo "Server = https://mirrors.tea-ci.org/msys2/mingw/x86_64" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw64
     echo "Server = https://mirrors.tea-ci.org/msys2/mingw/x86_64" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw64
 
-    echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
-    echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+    echo "Server = https://mirrors.tea-ci.org/msys2/msys/x86_64" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+    echo "Server = https://mirrors.tea-ci.org/msys2/msys/x86_64" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
 
     popd > /dev/null
 fi
