@@ -32,7 +32,7 @@ RUN msys32 -c "pacman -Suu --needed --noconfirm --noprogressbar"
 RUN msys32 -c "pacman -Suu --needed --noconfirm --noprogressbar && pacman -Scc --noconfirm"
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc --noconfirm"
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar msys2-devel && pacman -Scc --noconfirm"
-RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar mingw-w32-8686-toolchain && pacman -Scc --noconfirm"
+RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar mingw-w32-i686-toolchain && pacman -Scc --noconfirm"
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar git subversion && pacman -Scc --noconfirm"
 RUN msys32 -c "cp -f /usr/bin/false /usr/bin/tput"
 RUN msys2-rebase
