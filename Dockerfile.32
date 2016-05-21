@@ -19,5 +19,6 @@ RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pac
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar msys2-devel && pacman -Scc --noconfirm"
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-toolchain && pacman -Scc --noconfirm"
 RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar git subversion && pacman -Scc --noconfirm"
+RUN msys32 -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-cross-crt-git" # FIXME: investigate mingw-w64-cross-crt-clang-git issue
 RUN msys32 -c "cp -f /usr/bin/false /usr/bin/tput"
 RUN msys2-rebase
