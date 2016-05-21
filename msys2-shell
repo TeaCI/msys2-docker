@@ -13,6 +13,8 @@ then
     if ! [ -d /drone/wineprefix ]
     then
         mv "${WINEPREFIX}" /drone/wineprefix
+    elif ! [ -d /drone/wineprefix/drive_c/${MSYS_ARCH} ]
+        mv "${WINEPREFIX}/drive_c/${MSYS_ARCH}" "/drone/wineprefix/drive_c/${MSYS_ARCH}"
     fi
     export WINEPREFIX=/drone/wineprefix
     export MSYS_ROOT=${WINEPREFIX}/drive_c/${MSYS_ARCH}
