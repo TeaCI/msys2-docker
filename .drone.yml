@@ -8,7 +8,7 @@ build:
 notify:
   irc:
     prefix: build
-    nick: msys32-docker
+    nick: msys2-docker
     channel: wine-ci
     server:
       host: chat.freenode.net
@@ -25,7 +25,7 @@ publish:
       - "testing"
       - "w1.9.10-m2.5.1-3"
     when:
-      repo: TeaCI/msys32-docker # case sensitive
+      repo: TeaCI/msys2-docker # case sensitive
       branch: master
 
 matrix:
