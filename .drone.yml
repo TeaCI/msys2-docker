@@ -26,16 +26,11 @@ build:
     - cd ..
 
     - echo 'All test passed'
-    - echo 'Clone teaci/msys64:testing to teaci/msys64:latest using drone docker plugin...'
+    - echo 'Clone teaci/msys$$arch:testing to teaci/msys$$arch:latest using drone docker plugin...'
 
 notify:
-  irc:
-    prefix: build
-    nick: msys32-docker
-    channel: wine-ci
-    server:
-      host: chat.freenode.net
-      port: 6667
+  gitter:
+    webhook: https://webhooks.gitter.im/e/d8f2032e40a8e78a3882
 
 publish:
   docker:
