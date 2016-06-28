@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -e
+
+. /etc/msys2-env
+
+# hack - wineboot without display, create wineprefix in a quick way, workaround wineboot event timeout waiting for gecko and mono
+WINEDEBUG=-all DISPLAY=:55.0 wineboot; wineserver -w
+WINEDEBUG=-all DISPLAY=:55.0 winetricks nocrashdialog; wineserver -w
+
+# Latest mintty requires Lucida Console font
+cat > /tmp/lucida.reg << eof
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Wine\Fonts\Replacements]
+"Lucida Console"="Droid Sans Mono"
+eof
+WINEDEBUG=-all DISPLAY=:55.0 regedit /tmp/lucida.reg ; wineserver -w
+rm /tmp/lucida.reg
+
+if test -d ${MSYS_ROOT}
+then
+    echo Already initialized.
+else
+    pushd ${WINEPREFIX}/drive_c > /dev/null
+    wget ${MSYS_SETUP_URL}
+    tar xf msys2-*-latest.tar.xz
+    rm msys2-*-latest.tar.xz
+    msys2-shell -c echo Init MSYS2 done.
+
+    echo "Server = https://mirrors.tea-ci.org/msys2/mingw/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
+    echo "Server = https://mirrors.tea-ci.org/msys2/mingw/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw32
+
+    echo "Server = https://mirrors.tea-ci.org/msys2/mingw/x86_64" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw64
+    echo "Server = https://mirrors.tea-ci.org/msys2/mingw/x86_64" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw64
+
+    if [ "${MSYS_ARCH}" = 32 ]
+    then
+        echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+        echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+    fi
+    if [ "${MSYS_ARCH}" = 64 ]
+    then
+        echo "Server = https://mirrors.tea-ci.org/msys2/msys/x86_64" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+        echo "Server = https://mirrors.tea-ci.org/msys2/msys/x86_64" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
+    fi
+
+    msys2-shell -c "pacman -Syy --noconfirm --noprogressbar pacman"
+    msys2-shell -c "pacman -Suu --needed --noconfirm --noprogressbar"
+    msys2-shell -c "pacman -Suu --needed --noconfirm --noprogressbar && pacman -Scc --noconfirm"
+    msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar base-devel &&  pacman -Scc --noconfirm"
+    msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar msys2-devel && pacman -Scc --noconfirm"
+    msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar colormake && pacman -Scc --noconfirm"
+    # Install git subversion bzr mercurial
+    msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar VCS && pacman -Scc --noconfirm"
+
+    if [ "${MSYS_ARCH}" = 32 ]
+    then
+        msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-toolchain && pacman -Scc --noconfirm"
+    fi
+    if [ "${MSYS_ARCH}" = 64 ]
+    then
+        msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-x86_64-toolchain && pacman -Scc --noconfirm"
+    fi
+
+    # FIXME: investigate mingw-w64-cross-crt-clang-git issue
+    msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-cross-crt-git"
+
+    msys2-shell -c "cp -f /usr/bin/false /usr/bin/tput"
+    msys2-rebase
+    popd > /dev/null
+fi

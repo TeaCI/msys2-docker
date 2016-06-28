@@ -1,32 +1,36 @@
 build:
-  image: drone/golang:1.5
+  image: teaci/wine-staging
   commands:
-    - export msys_arch=$$arch
-    - echo 'Build teaci/msys$$arch:testing image using drone docker plugin...'
-    - ./generate.sh
+    - wget http://security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.5.2-1ubuntu2_i386.deb && wget http://security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.5.2-1ubuntu2_amd64.deb && dpkg -i libfreetype6_2.5.2-1ubuntu2_amd64.deb libfreetype6_2.5.2-1ubuntu2_i386.deb
+    - export WINPTY_SHOW_CONSOLE=1
+
+    - cp msys2-env /etc
+    - cp msys2-shell /usr/bin
+    - cp msys2-rebase /usr/bin
+    - cp msys2-init /usr/bin
+    - cp msys32 /usr/bin
+    - cp msys64 /usr/bin
+
+# unset DRONE to skip copying wineprefix in msys2-init
+    - DRONE=false WINEPREFIX=`pwd`/wineprefix MSYS_ARCH=$$arch msys2-init
 
 notify:
-  irc:
-    prefix: build
-    nick: msys2-docker
-    channel: wine-ci
-    server:
-      host: chat.freenode.net
-      port: 6667
+  gitter:
+    webhook: https://webhooks.gitter.im/e/d8f2032e40a8e78a3882
 
 publish:
   docker:
-    file: Dockerfile.$$arch
+    file: Dockerfile
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
     repo: teaci/msys$$arch
     tag:
       - "testing"
-      - "w1.9.10-m2.5.1-4t"
+      - "w1.9.10-m2.5.1-5t"
     when:
       repo: TeaCI/msys2-docker # case sensitive
-      branch: master
+      branch: ["master"]
 
 matrix:
   arch:

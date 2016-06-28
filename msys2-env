@@ -1,0 +1,25 @@
+#!/usr/bin/env
+
+export TERM="xterm"
+
+if test "$WINEPREFIX"
+then
+    export WINEPREFIX=${WINEPREFIX}
+else
+    export WINEPREFIX=${HOME}/.wine
+fi
+
+if [ "$MSYS_ARCH" = 32 ]
+then
+    export MSYS_DIR=msys32
+    export MSYS_ROOT=${WINEPREFIX}/drive_c/${MSYS_DIR}
+    export MSYS_SETUP_URL=http://mirrors.tea-ci.org/msys2/distrib/msys2-i686-latest.tar.xz
+elif [ "$MSYS_ARCH" = 64 ]
+then
+    export MSYS_DIR=msys64
+    export MSYS_ROOT=${WINEPREFIX}/drive_c/${MSYS_DIR}
+    export MSYS_SETUP_URL=http://mirrors.tea-ci.org/msys2/distrib/msys2-x86_64-latest.tar.xz
+else
+    echo "ERROR: MSYS_ARCH is not defined!"
+    exit 1
+fi
