@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "$MSYS_ARCH" = 32 ]
+then
+    pushd ${MSYS_ROOT} > /dev/null
+    WINEDEBUG=-all DISPLAY=:55.0 wine wineconsole --backend=curses autorebase.bat > /dev/null ; wineserver -w
+    popd > /dev/null
+elif [ "$MSYS_ARCH" = 64 ]
+then
+    echo Nothing to do for 64 bit.
+else
+    echo "ERROR: MSYS_ARCH is not defined!"
+    exit 1
+fi

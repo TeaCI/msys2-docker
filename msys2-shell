@@ -2,9 +2,18 @@
 
 set -e
 
+. /etc/msys2-env
+
 if [ "${DEBUG_WRAPPER}" = "true" ]
 then
     set -x
+fi
+
+if [ "${DISPLAY}" = "" ]
+then
+    export DISPLAY=:95
+    Xvfb :95 -ac -reset -terminate -screen 0 800x600x16 2>/dev/null &
+    sleep 3
 fi
 
 # workaround https://bugs.wine-staging.com/show_bug.cgi?id=403
@@ -19,13 +28,6 @@ then
     fi
     export WINEPREFIX=/drone/wineprefix
     export MSYS_ROOT=${WINEPREFIX}/drive_c/${MSYS_ARCH}
-fi
-
-if [ "${DISPLAY}" = "" ]
-then
-    export DISPLAY=:95
-    Xvfb :95 -ac -reset -terminate -screen 0 800x600x16 2>/dev/null &
-    sleep 3
 fi
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]
