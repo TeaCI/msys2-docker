@@ -34,13 +34,12 @@ else
     echo "Server = https://mirrors.tea-ci.org/msys2/mingw/x86_64" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw64
     echo "Server = https://mirrors.tea-ci.org/msys2/mingw/x86_64" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.mingw64
 
-    if [ "MSYS_ARCH" = 32 ]
+    if [ "${MSYS_ARCH}" = 32 ]
     then
         echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
         echo "Server = https://mirrors.tea-ci.org/msys2/msys/i686" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
     fi
-
-    if [ "MSYS_ARCH" = 64 ]
+    if [ "${MSYS_ARCH}" = 64 ]
     then
         echo "Server = https://mirrors.tea-ci.org/msys2/msys/x86_64" > ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
         echo "Server = https://mirrors.tea-ci.org/msys2/msys/x86_64" >> ${MSYS_ROOT}/etc/pacman.d/mirrorlist.msys
@@ -55,11 +54,11 @@ else
     # Install git subversion bzr mercurial
     msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar VCS && pacman -Scc --noconfirm"
 
-    if [ "MSYS_ARCH" = 32 ]
+    if [ "${MSYS_ARCH}" = 32 ]
     then
         msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-toolchain && pacman -Scc --noconfirm"
     fi
-    if [ "MSYS_ARCH" = 64 ]
+    if [ "${MSYS_ARCH}" = 64 ]
     then
         msys2-shell -c "pacman -S --needed --noconfirm --noprogressbar mingw-w64-x86_64-toolchain && pacman -Scc --noconfirm"
     fi
