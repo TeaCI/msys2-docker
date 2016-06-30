@@ -27,7 +27,7 @@ publish:
     repo: teaci/msys$$arch
     tag:
       - "testing"
-      - "w1.9.10-m2.5.1-5t"
+      - "w1.9.10-m2.5.2-1t"
     when:
       repo: TeaCI/msys2-docker # case sensitive
       branch: ["master"]
